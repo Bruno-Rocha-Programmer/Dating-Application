@@ -1,5 +1,6 @@
 ﻿using DatingApp.Data;
 using DatingApp.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ namespace DatingApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MembersController(DbAppContext context) : ControllerBase
     {
         [HttpGet]
@@ -28,6 +30,6 @@ namespace DatingApp.Controllers
 
             return member;
         }
-       
+
     }
 }

@@ -22,7 +22,7 @@ export class App implements OnInit {
   async getMembers() {
     try {
       return lastValueFrom(
-        this.http.get('http://localhost:5233/Weatherforecast')
+        this.http.get('http://localhost:5233/api/members')
       );
     } catch (error) {
       console.log(error);

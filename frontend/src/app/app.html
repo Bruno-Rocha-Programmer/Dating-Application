@@ -2,10 +2,8 @@
   <h1 class="text-2xl text-pink-500">{{ title }}</h1>
   <ul class="list">
     <li class="list-row items-center" *ngFor="let member of members()">
-      <p>{{ member.date }}</p>
-      <p>{{ member.temperatureC }}</p>
-      <p>{{ member.temperatureF }}</p>
-      <p>{{ member.summary }}</p>
+      <p>{{ member.displayName }}</p>
+      <p>{{ member.email }}</p>
     </li>
   </ul>
 </div>
