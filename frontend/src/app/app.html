@@ -1,11 +1,5 @@
-<div class="card bg-base-100 w-1/2 mx-auto p-10 mt-10 shadow-xl">
-  <h1 class="text-2xl text-pink-500">{{ title }}</h1>
-  <ul class="list">
-    <li class="list-row items-center" *ngFor="let member of members()">
-      <p>{{ member.displayName }}</p>
-      <p>{{ member.email }}</p>
-    </li>
-  </ul>
-</div>
+<app-nav></app-nav>
+
+<app-home></app-home>
 
 <router-outlet />

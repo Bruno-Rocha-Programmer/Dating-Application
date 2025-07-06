@@ -10,7 +10,6 @@ namespace DatingApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class MembersController(DbAppContext context) : ControllerBase
     {
         [HttpGet]
