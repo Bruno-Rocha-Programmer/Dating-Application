@@ -1,5 +1,5 @@
 <app-nav></app-nav>
 
-<app-home></app-home>
-
-<router-outlet />
+<div [ngClass]="{ 'mt-24 container mx-auto': !(router.url === '/') }">
+  <router-outlet />
+</div>
