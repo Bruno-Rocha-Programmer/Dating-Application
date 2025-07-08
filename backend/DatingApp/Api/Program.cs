@@ -1,4 +1,5 @@
 using System.Text;
+using Api.Middleware;
 using Api.Services;
 using DatingApp.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,6 +34,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 app.UseAuthentication();

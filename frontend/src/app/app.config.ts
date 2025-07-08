@@ -6,18 +6,19 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
 import { InitServer } from '../core/services/init-server';
 import { lastValueFrom } from 'rxjs';
+import { errorInterceptor } from '../core/interceptors/error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes, withViewTransitions()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([errorInterceptor])),
     provideAppInitializer(async () => {
       const initService = inject(InitServer);
       return new Promise<void>((resolve) => {
