@@ -1,5 +1,7 @@
 using System.Text;
+using Api.Data;
 using Api.Middleware;
+using Api.Repository;
 using Api.Services;
 using DatingApp.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<DbAppContext>(opt =>
 builder.Services.AddCors();
 builder.Services.AddScoped<IAuthService, AuthServices>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -42,5 +45,20 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using var scoped = app.Services.CreateScope();
+var services = scoped.ServiceProvider;
+
+try
+{
+    var context = services.GetRequiredService<DbAppContext>();
+    await context.Database.MigrateAsync();
+    await Seed.SeedUsers(context);
+}
+catch (Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "Error occured during migration"); 
+}
 
 app.Run();
